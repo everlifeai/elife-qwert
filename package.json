@@ -1,0 +1,14 @@
+{
+  "name": "elife-qwert",
+  "version": "0.1.0",
+  "description": "The Everlife Default QWERT Communication Channel",
+  "main": "index.js",
+  "scripts": {
+      "start": "node ."
+  },
+  "author": "charles.lobo@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "elife-utils": "everlifeai/elife-utils"
+  }
+}
