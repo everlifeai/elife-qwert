@@ -1,4 +1,5 @@
 'use strict'
+const cote = require('cote')({statusLogsEnabled:false})
 const http = require('http')
 const u = require('elife-utils')
 
@@ -23,7 +24,6 @@ function startHttpServer(cfg) {
 }
 
 function handleReq(req, res) {
-    u.showMsg('Got request: ' + req.url)
     if(req.url == '/msg') return userMsg(req, res)
     if(req.url == '/bot') return botMsg(req, res)
     return reply400('Not found', res)
@@ -34,15 +34,26 @@ function userMsg(req, res) {
     withJSONData(req, res, (err, data) => {
         if(err) reply400(err, res)
         else {
-            addReply(data)
-            res.writeHead(200)
-            res.end()
+            client.send({
+                type: 'message',
+                chan: botKey,
+                ctx: 'qwert',
+                from: 'localuser',
+                msg: data.msg,
+            }, (err) => {
+                if(err) {
+                    u.showErr(err)
+                    res.writeHead(500)
+                } else {
+                    res.writeHead(200)
+                }
+                res.end()
+            })
         }
     })
 }
 
 let MSGS = []
-// TODO: remove this temp function
 function addReply(data) {
     if(data.msg) MSGS.push(data.msg)
 }
@@ -109,6 +120,27 @@ function withJSONData(req, res, cb) {
         }
     })
 }
+
+const client = new cote.Requester({
+    name: 'QWERT Comm Channel',
+    key: 'everlife-communication-svc',
+})
+
+/*      understand/
+ * The telegram microservice has to be partitioned by a key to identify
+ * it uniquely.
+ */
+const botKey = 'everlife-comm-qwert-svc'
+
+const botChannel = new cote.Responder({
+    name: 'QWERT Communication Service',
+    key: botKey,
+})
+
+botChannel.on('reply', (req, cb) => {
+    addReply({msg: req.msg})
+    cb()
+})
 
 
 main()
