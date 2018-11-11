@@ -55,13 +55,13 @@ function userMsg(req, res) {
 
 let MSGS = []
 function addReply(data) {
-    if(data.msg) MSGS.push(data.msg)
+    if(data.msg || data.addl) MSGS.push(data)
 }
 
 function botMsg(req, res) {
     res.writeHead(200)
     let msg = MSGS.shift()
-    if(msg) res.end(JSON.stringify({msg:msg}))
+    if(msg) res.end(JSON.stringify(msg))
     else res.end()
 }
 
@@ -138,7 +138,7 @@ const botChannel = new cote.Responder({
 })
 
 botChannel.on('reply', (req, cb) => {
-    addReply({msg: req.msg})
+    addReply({msg: req.msg, addl: req.addl})
     cb()
 })
 
