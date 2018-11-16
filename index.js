@@ -61,7 +61,7 @@ function addReply(data) {
 function botMsg(req, res) {
     res.writeHead(200)
     let msg = MSGS.shift()
-    if(msg) res.end(JSON.stringify(msg))
+    if(msg || msg === 0) res.end(JSON.stringify(msg))
     else res.end()
 }
 
