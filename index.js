@@ -40,6 +40,7 @@ function userMsg(req, res) {
                 ctx: 'qwert',
                 from: 'localuser',
                 msg: data.msg,
+                addl: data.addl,
             }, (err) => {
                 if(err) {
                     u.showErr(err)
