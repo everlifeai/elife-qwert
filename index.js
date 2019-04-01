@@ -82,17 +82,17 @@ function reply400(e, res) {
  *
  *      way/
  * Use events to read the body data as it arrives and append it to a
- * string. While this is not very efficient, we don't expect the
- * requests to be very large so it should be ok. If the requests are
- * very large we terminate the request.
+ * string.
  *
- * TODO: Validate maxmimum request size
+ * This is not very efficient so we restrict the maximum request size.
+ *
+ * TODO: Validate if this is ok esp with storing video
  */
 function withPostData(req, res, cb) {
     let data = '';
     req.on('data', (d) => {
         data += d;
-        if(data.length > 1e6) {
+        if(data.length > 2e7) {
             data = "";
             res.writeHead(413)
             res.end();
