@@ -19,7 +19,7 @@ function loadConfig() {
 }
 
 function startHttpServer(cfg) {
-    u.showMsg(`Server starting on ${cfg.PORT}...`)
+    u.showMsg(`QWERT Server starting on ${cfg.PORT}...`)
     http.createServer(handleReq).listen(cfg.PORT)
 }
 
