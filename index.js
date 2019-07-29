@@ -1,11 +1,7 @@
 'use strict'
 const cote = require('cote')({statusLogsEnabled:false})
 const http = require('http')
-const staticResource = require('static-resource');
 const u = require('elife-utils')
-const fs = require('fs');
-const url = require('url');
-const handler = staticResource.createHandler(fs.realpathSync('./static'));
 
 function main() {
     let cfg = loadConfig()
@@ -28,19 +24,9 @@ function startHttpServer(cfg) {
 }
 
 function handleReq(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Request-Method', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET,POST');
-    res.setHeader('Access-Control-Allow-Headers', '*');
 
     if(req.url == '/msg') return userMsg(req, res)
     else if(req.url == '/bot') return botMsg(req, res)
-    else {
-        let path = url.parse(req.url).pathname;
-        if(!handler.handle(path, req, res)) {
-            return reply400('Not found', res)
-        }
-    }
 }
 
 function userMsg(req, res) {
