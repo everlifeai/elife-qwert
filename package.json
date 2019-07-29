@@ -10,7 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "cote": "^0.18.0",
-    "elife-utils": "everlifeai/elife-utils",
-    "static-resource": "0.1.0"
+    "elife-utils": "everlifeai/elife-utils"
   }
 }
