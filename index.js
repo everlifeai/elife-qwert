@@ -27,6 +27,10 @@ function handleReq(req, res) {
 
     if(req.url == '/msg') return userMsg(req, res)
     else if(req.url == '/bot') return botMsg(req, res)
+    else if( req.url == '/') {
+        res.writeHead(200)
+        res.end()
+    }
 }
 
 function userMsg(req, res) {
