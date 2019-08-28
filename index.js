@@ -27,10 +27,12 @@ function handleReq(req, res) {
 
     if(req.url == '/msg') return userMsg(req, res)
     else if(req.url == '/bot') return botMsg(req, res)
-    else if( req.url == '/') {
-        res.writeHead(200)
-        res.end()
-    }
+    else if( req.url == '/ping') return pingResponse(req, res)
+}
+
+function pingResponse(req, res) {
+    res.writeHead(200)
+    res.end()
 }
 
 function userMsg(req, res) {
