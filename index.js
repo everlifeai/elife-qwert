@@ -1,7 +1,7 @@
 'use strict'
 const cote = require('cote')({statusLogsEnabled:false})
 const http = require('http')
-const u = require('elife-utils')
+const u = require('@elife/utils')
 
 function main() {
     let cfg = loadConfig()
