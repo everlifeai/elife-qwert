@@ -149,5 +149,13 @@ botChannel.on('reply', (req, cb) => {
     cb()
 })
 
-
+/**
+ *   outcome/
+ *  This service is used to get the message from the support channel, 
+ * show the message to the owner of the avatar
+ * 
+ */
+botChannel.on('support-msg', (req, cb) =>{
+    addReply({msg: req.msg, addl: req.addl}) 
+} )
 main()
