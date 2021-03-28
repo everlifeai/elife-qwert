@@ -1,6 +1,6 @@
 {
   "name": "elife-qwert",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "The Everlife Default QWERT Communication Channel",
   "main": "index.js",
   "scripts": {
